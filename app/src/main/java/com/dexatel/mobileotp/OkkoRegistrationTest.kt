@@ -62,8 +62,8 @@ class OkkoRegistrationTest {
         // Find for user avatar displays
         val avatar = device.wait(
             Until.findObject(
-                By.desc("Настройки")
-            ), 5000
+                By.res("ru.more.play:id/menu_main_profile")
+            ), 50000
         )
 
         // If permission request popup appears upon launch accept it
@@ -88,7 +88,7 @@ class OkkoRegistrationTest {
         val phoneField = device.wait(
             Until.findObject(
                 By.res("ru.more.play:id/singleAuthorizationEditText")
-            ), 2000
+            ), 5000
         )
         phoneField.text = getRandomPhoneNumber()
 
@@ -100,12 +100,14 @@ class OkkoRegistrationTest {
         )
         continueButton.click()
 
-        // Wait until Вы входите по номеру телефона text displays on the screen
+        // Wait until 'You are logging in by phone number' text displays on the screen
         val phoneRegisterInfo = device.wait(
             Until.findObject(
-                By.textStartsWith("Вы входите по номеру телефона")
-            ), 2000
+                By.textStartsWith("You are logging in by phone number")
+            ), 5000
         )
+
+        Assert.assertNotEquals("OTP message isn't sent", null, phoneRegisterInfo)
     }
 
     private fun getRandomPhoneNumber(): String {
