@@ -30,11 +30,21 @@ class OkkoRegistrationTest {
         fun tearDown() {
             device.pressRecentApps()
             val multitasking = device.wait(Until.findObject(
-                By.res("com.google.android.apps.nexuslauncher:id/snapshot")), 2000)
+                By.res("com.google.android.apps.nexuslauncher:id/snapshot")), 3000)
             if (null != multitasking) {
-                val startX = device.displayWidth / 2
-                val startY = device.displayHeight
-                device.swipe(startX, startY - 600, startX, 20, 10)
+                val width = device.displayWidth
+                val height = device.displayHeight / 2
+                device.swipe(width / 2, height, width, height / 2, 10)
+                val clearAllButton = device.wait(
+                    Until.findObject(
+                        By.res("com.google.android.apps.nexuslauncher:id/clear_all")
+                    ), 2000
+                )
+                if (null != clearAllButton) {
+                    clearAllButton.click()
+                } else {
+                    Assert.fail("Couldn't force close the app")
+                }
             } else {
                 Assert.fail("Multitasking bar isn't opened")
             }
