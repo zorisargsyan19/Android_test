@@ -56,7 +56,11 @@ class OkkoRegistrationTest {
         device.wait(Until.hasObject(By.pkg("com.android.launcher3")), 5000)
 
         // Find the Okko app and click on it
-        val okkoApp = device.findObject(By.desc("Okko"))
+        val okkoApp = device.wait(
+            Until.findObject(
+                By.desc("Okko")
+            ), 5000
+        )
         okkoApp.click()
 
         // Find for user avatar displays
