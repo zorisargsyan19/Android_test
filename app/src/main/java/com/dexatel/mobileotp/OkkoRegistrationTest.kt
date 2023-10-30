@@ -110,7 +110,7 @@ class OkkoRegistrationTest {
                 By.res("ru.more.play:id/singleAuthorizationEditText")
             ), 5000
         )
-        phoneField.text = "+37455443033"
+        phoneField.text = getRandomPhoneNumber()
 
         // Click on the Continue button
         val continueButton = device.wait(
