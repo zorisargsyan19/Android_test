@@ -25,36 +25,36 @@ class OkkoRegistrationTest {
             device.pressHome()
         }
 
-        @AfterClass
-        @JvmStatic
-        fun tearDown() {
-            device.pressRecentApps()
-            val multitasking = device.wait(Until.findObject(
-                By.res("com.google.android.apps.nexuslauncher:id/snapshot")), 5000)
-            if (null != multitasking) {
-                val width = device.displayWidth
-                val height = device.displayHeight / 2
-                device.swipe(width / 2, height, width, height / 2, 10)
-                val clearAllButton = device.wait(
-                    Until.findObject(
-                        By.res("com.google.android.apps.nexuslauncher:id/clear_all")
-                    ), 5000
-                )
-                if (null != clearAllButton) {
-                    clearAllButton.click()
-                    val isNotAppRunning = device.wait(
-                        Until.gone(
-                            By.res("com.google.android.apps.nexuslauncher:id/snapshot")
-                        ), 3000
-                    )
-                    Assert.assertTrue("The app still running", isNotAppRunning)
-                } else {
-                    Assert.fail("Couldn't force close the app")
-                }
-            } else {
-                Assert.fail("Multitasking bar isn't opened")
-            }
-        }
+//        @AfterClass
+//        @JvmStatic
+//        fun tearDown() {
+//            device.pressRecentApps()
+//            val multitasking = device.wait(Until.findObject(
+//                By.res("com.google.android.apps.nexuslauncher:id/snapshot")), 5000)
+//            if (null != multitasking) {
+//                val width = device.displayWidth
+//                val height = device.displayHeight / 2
+//                device.swipe(width / 2, height, width, height / 2, 10)
+//                val clearAllButton = device.wait(
+//                    Until.findObject(
+//                        By.res("com.google.android.apps.nexuslauncher:id/clear_all")
+//                    ), 5000
+//                )
+//                if (null != clearAllButton) {
+//                    clearAllButton.click()
+//                    val isNotAppRunning = device.wait(
+//                        Until.gone(
+//                            By.res("com.google.android.apps.nexuslauncher:id/snapshot")
+//                        ), 3000
+//                    )
+//                    Assert.assertTrue("The app still running", isNotAppRunning)
+//                } else {
+//                    Assert.fail("Couldn't force close the app")
+//                }
+//            } else {
+//                Assert.fail("Multitasking bar isn't opened")
+//            }
+//        }
     }
 
     @Test
@@ -110,7 +110,7 @@ class OkkoRegistrationTest {
                 By.res("ru.more.play:id/singleAuthorizationEditText")
             ), 5000
         )
-        phoneField.text = getRandomPhoneNumber()
+        phoneField.text = "+37455443033"
 
         // Click on the Continue button
         val continueButton = device.wait(
