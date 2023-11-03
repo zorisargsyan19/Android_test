@@ -139,7 +139,13 @@ class ViberRegistrationTest {
 
         val titleResourceId = "com.viber.voip:id/title"
         val flashCallScreenTitle = "You're almost there…"
-        waitForElementTextToBeOneOf(titleResourceId, flashCallScreenTitle, "Activate your account", 3000)
+
+        // Wait for the element's text to match either expected value
+        device.wait(Until.findObject(By.res(titleResourceId)), 5000)
+            .wait(Until.textMatches("Activate your account"), 2000)
+        device.wait(Until.findObject(By.res(titleResourceId)), 5000)
+            .wait(Until.textMatches(flashCallScreenTitle), 2000)
+
         val screenTitle = device.findObject(By.res(titleResourceId))
 
         if (screenTitle.text.equals(flashCallScreenTitle)) {
@@ -169,15 +175,5 @@ class ViberRegistrationTest {
             )
             Assert.assertNotEquals("OTP message isn't sent", null, codeSentMessage)
         }
-
-
-    }
-
-    private fun waitForElementTextToBeOneOf(resourceId: String, expectedText1: String, expectedText2: String, timeoutMillis: Long) {
-        // Use Until.textMatches to wait for the element's text to match either expected value
-        device.wait(Until.findObject(By.res(resourceId)), 5000)
-            .wait(Until.textMatches(expectedText1), timeoutMillis)
-        device.wait(Until.findObject(By.res(resourceId)), 5000)
-            .wait(Until.textMatches(expectedText2), timeoutMillis)
     }
 }
