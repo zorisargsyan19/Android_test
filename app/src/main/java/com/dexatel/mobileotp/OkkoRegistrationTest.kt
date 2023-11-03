@@ -110,7 +110,7 @@ class OkkoRegistrationTest {
                 By.res("ru.more.play:id/singleAuthorizationEditText")
             ), 5000
         )
-        phoneField.text = getRandomPhoneNumber()
+        phoneField.text = "+374" + HelperFunctions.getRandomInvalidArmenianNumber()
 
         // Click on the Continue button
         val continueButton = device.wait(
@@ -128,13 +128,5 @@ class OkkoRegistrationTest {
         )
 
         Assert.assertNotEquals("OTP message isn't sent", null, phoneRegisterInfo)
-    }
-
-    private fun getRandomPhoneNumber(): String {
-        val numbers = "0123456789"
-        val randomNumber = (1..6)
-            .map { numbers.random() }
-            .joinToString("")
-        return "+37418$randomNumber"
     }
 }
