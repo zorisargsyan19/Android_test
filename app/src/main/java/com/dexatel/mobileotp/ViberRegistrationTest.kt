@@ -128,13 +128,22 @@ class ViberRegistrationTest {
             3000
         )?.click()
 
+        val permissionDenyButtonResId = "com.android.permissioncontroller:id/permission_deny_button"
         repeat(2) {
-            device.wait(
+            val denyButton = device.wait(
                 Until.findObject(
-                    By.res("com.android.permissioncontroller:id/permission_deny_button")
+                    By.res(permissionDenyButtonResId)
                 ),
                 2000
-            )?.click()
+            )
+            if (null != denyButton) {
+                denyButton.click()
+                device.wait(
+                    Until.gone(
+                        By.res(permissionDenyButtonResId)
+                    ),
+                1000)
+            }
         }
 
         val titleResourceId = "com.viber.voip:id/title"
